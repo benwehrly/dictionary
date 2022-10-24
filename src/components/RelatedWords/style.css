@@ -1,0 +1,48 @@
+.synonyms {
+    background-color: teal;
+    color: white;
+    width: 400px;
+    padding: 5px 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+  }
+  
+  .synonyms:last-of-type {
+    background-color: rgb(200, 100, 50);
+  }
+  
+  .synonymsList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+    width: 300px;
+  }
+  
+  .synonymsList > p {
+    background-color: rgb(0, 0, 0, 0.3);
+    width: fit-content;
+    width: 110px;
+    margin: 10px auto;
+    padding: 2px 10px 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .synonymsList > p:hover {
+    background-color: rgb(0, 0, 0, 0.4);
+  }
+
+  @media(max-width: 600px){
+    .def{
+        width: 280px;
+      }
+    
+      .results {
+        flex-direction: column;
+        width: 100%;
+      }
+    
+      .synonyms {
+        width: 280px;
+      }
+  }
