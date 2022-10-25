@@ -1,6 +1,6 @@
 import './style.css'
 
-const RelatedWords = ({ text, type, setSearchTerm, setText }) => {
+const RelatedWords = ({ text, type, setSearchTerm }) => {
     return (
       <div className="synonyms">
         <h2 style={{ margin: "5px" }}>{text}</h2>
@@ -9,7 +9,6 @@ const RelatedWords = ({ text, type, setSearchTerm, setText }) => {
             <p
               onClick={() => {
                 setSearchTerm(syn);
-                setText(syn);
               }}
             >
               {syn}

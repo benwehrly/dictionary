@@ -33,7 +33,7 @@
   }
   
   input:focus {
-    outline: 1px solid rgb(220, 220, 255);
+    box-shadow: 0 0 0 1px rgb(220,220,255);
   }
   
   .searchIcon {
@@ -47,12 +47,15 @@
     transform: translate(-100%);
     background-color: rgb(0, 0, 150, 0.05);
     cursor: pointer;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
   }
 
   @media (max-width: 600px) {
 
     .main{
       width: 320px;
+      margin: 0 auto 20px auto;
     }
   
     .inputContainer{

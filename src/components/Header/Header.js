@@ -1,8 +1,6 @@
 import './style.css'
 
-const Header = ({ darkTheme, setDarkTheme }) => {
-
-    const handleTheme = () => setDarkTheme(!darkTheme)
+const Header = ({ isDarkTheme, handleTheme }) => {
 
     return (
         <header>
@@ -10,9 +8,12 @@ const Header = ({ darkTheme, setDarkTheme }) => {
             <div 
                 className='theme'
                 onClick={handleTheme}
-                style={{ justifyContent: darkTheme && 'flex-end'}}
+                // style={{ justifyContent: darkTheme && 'flex-end'}}
+                style={{ justifyContent: isDarkTheme && 'flex-end'}}
             >
-                <div className='toggle'/>
+                <div className='toggle'>
+                    <div className='radiance'/>
+                </div>
             </div>
         </header>
     )

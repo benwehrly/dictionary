@@ -19,9 +19,22 @@ header {
   }
   
   .toggle {
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     background-color: teal;
     border-radius: 100px;
     transition: all .5s;
+    box-shadow: inset -3px 0 3px 1px rgb(0,0,0,.3);
+    position: relative;
+  }
+
+  .radiance {
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    height: 5px;
+    width: 5px;
+    border-radius: 10px;
+    background-color: rgb(255,255,255,.2);
+    outline: 2px solid rgb(255,255,255,.1)
   }

@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import RelatedWords from '../RelatedWords/RelatedWords';
 
-const Word = ({ word, setSearchTerm, setText, searchTerm, darkTheme }) => {
+const Word = ({ word, setSearchTerm, searchTerm, isDarkTheme }) => {
     const { word: thisWord, phonetic } = word;
     const type = word.meanings[0].partOfSpeech;
     const synonyms = word.meanings[0].synonyms;
@@ -25,8 +25,8 @@ const Word = ({ word, setSearchTerm, setText, searchTerm, darkTheme }) => {
               {definitions.slice(0,3).map((def) => (
                 <p 
                     className="def"
-                    style={{ backgroundColor: darkTheme && 'rgb(50, 60, 80)',
-                        color: darkTheme && 'rgb(255, 255, 245)'}}
+                    style={{ backgroundColor: isDarkTheme && 'rgb(50, 60, 80)',
+                        color: isDarkTheme && 'rgb(255, 255, 245)'}}
                 >
                   <span style={{ textTransform: "capitalize" }}>
                     {thisWord}:{" "}
@@ -39,7 +39,6 @@ const Word = ({ word, setSearchTerm, setText, searchTerm, darkTheme }) => {
               <RelatedWords
                 type={synonyms}
                 text="Synonyms"
-                setText={setText}
                 setSearchTerm={setSearchTerm}
               />
             )}
@@ -47,7 +46,6 @@ const Word = ({ word, setSearchTerm, setText, searchTerm, darkTheme }) => {
               <RelatedWords
                 type={antonyms}
                 text="Antonyms"
-                setText={setText}
                 setSearchTerm={setSearchTerm}
               />
             )}

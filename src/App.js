@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useRef, useEffect } from "react";
 import useFetch from "./hooks/useFetch";
+import useToggle from './hooks/useToggle'
 import Footer from './components/Footer/Footer';
 import Word from './components/Word/Word';
 import Header from './components/Header/Header'
@@ -11,7 +12,6 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("definition");
   const [text, setText] = useState("");
   const [count, setCount] = useState(1);
-  const [ darkTheme, setDarkTheme ] = useState(false)
   const appRef = useRef(null);
 
   useEffect(() => {
@@ -24,6 +24,8 @@ export default function App() {
     count
   );
 
+  const { isToggled: isDarkTheme, handleToggle: handleTheme } = useToggle(false)
+
   function handleSubmit(e) {
     setCount((prev) => prev + 1);
     e.preventDefault();
@@ -31,21 +33,22 @@ export default function App() {
   }
 
   function handleRandomWord(term) {
-    // wordRef.current.value = term;
     setSearchTerm(term);
     setText(term);
   }
 
   const theme = {
-    backgroundColor: darkTheme && 'rgb(30,30,40)',
-    color: darkTheme && 'white'
+    backgroundColor: isDarkTheme && 'rgb(30,30,40)',
+    color: isDarkTheme && 'white'
   }
+
+  const isFound = data?.[0]
 
   return (
     <div className="App" ref={appRef} style={theme}>
       <Header 
-        darkTheme={darkTheme} 
-        setDarkTheme={setDarkTheme} 
+        isDarkTheme={isDarkTheme}
+        handleTheme={handleTheme}
       />
       <Form 
         text={text} 
@@ -54,14 +57,13 @@ export default function App() {
         handleRandomWord={handleRandomWord}
         setText={setText}
       />
-      {data?.[0] ? (
+      {isFound ? (
         <Word
           word={data[0]}
           count={count}
           setSearchTerm={setSearchTerm}
-          setText={setText}
           searchTerm={searchTerm}
-          darkTheme={darkTheme}
+          isDarkTheme={isDarkTheme}
         />
       ) : (
         <h1>Word not found</h1>
