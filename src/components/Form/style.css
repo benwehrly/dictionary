@@ -17,38 +17,47 @@
   .inputContainer {
     width: 90%;
     position: relative;
+    height: 50px;
   }
   
   input {
     font-family: "Oswald", sans-serif;
     width: 100%;
-    padding: 10px 0;
     text-align: center;
     border: none;
     outline: none;
     background-color: rgb(240, 240, 250);
     font-size: 1.5rem;
     border-radius: 6px;
-    overflow: hidden;
+    position: relative;
+    height: 100%;
+    padding: 0;
   }
   
   input:focus {
     box-shadow: 0 0 0 1px rgb(220,220,255);
   }
-  
-  .searchIcon {
-    z-index: 10;
+
+  .searchIconContainer {
+    height: 100%;
+    width: 50px;
     position: absolute;
-    height: 64%;
-    aspect-ratio: 1;
-    padding: 10px;
     top: 0;
     left: 100%;
     transform: translate(-100%);
-    background-color: rgb(0, 0, 150, 0.05);
-    cursor: pointer;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: rgb(0, 0, 150, 0.05);
+    background-color: rgb(230,230,245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .searchIcon {
+    width: 35px;
   }
 
   @media (max-width: 600px) {

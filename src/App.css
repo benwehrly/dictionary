@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;300&display=swap");
 
 body {
   overscroll-behavior: none;
@@ -6,6 +6,7 @@ body {
 
 .App {
   font-family: "Oswald", sans-serif;
+  font-weight: 500;
   text-align: center;
   position: absolute;
   top: 0;
@@ -18,6 +19,7 @@ body {
 
 h2 {
   text-transform: capitalize;
+  font-weight: 500;
 }
 
 .def {
