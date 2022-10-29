@@ -16,11 +16,7 @@ const useFetch = (url, num) => {
       }
     }
 
-    fetchData().then((data) => {
-      setData(data);
-      console.log(data);
-      console.log(num);
-    });
+    fetchData().then(data => setData(data));
   }, [url, num]);
 
   return {
