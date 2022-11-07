@@ -12,12 +12,13 @@ const Form = ({ text, handleSubmit, handleRandomWord, count, setText }) => {
           onClick={(e) => e.target.select()}
           autoFocus
         />
-        <img
-          className="searchIcon"
-          src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png"
-          alt=""
-          onClick={handleSubmit}
-        />
+        <div className='searchIconContainer' onClick={handleSubmit}>
+          <img
+            className="searchIcon"
+            src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png"
+            alt=""
+          />
+        </div>
       </div>
       <Buttons
         handleSubmit={handleSubmit}

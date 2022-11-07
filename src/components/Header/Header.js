@@ -1,22 +1,28 @@
-import './style.css'
+import { useEffect, useRef, useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import "./style.css";
+import { motion } from "framer-motion"
 
-const Header = ({ isDarkTheme, handleTheme }) => {
+const Header = () => {
 
-    return (
-        <header>
-            <h1>Quicktionary</h1>
-            <div 
-                className='theme'
-                onClick={handleTheme}
-                // style={{ justifyContent: darkTheme && 'flex-end'}}
-                style={{ justifyContent: isDarkTheme && 'flex-end'}}
-            >
-                <div className='toggle'>
-                    <div className='radiance'/>
-                </div>
-            </div>
-        </header>
-    )
-}
+  const { isDarkTheme, handleTheme } = useContext(ThemeContext)
 
-export default Header
+  return (
+    <header>
+      <h1>Quicktionary</h1>
+      <div className="theme" onClick={handleTheme}>
+        <div className="toggle" style={{ marginLeft: isDarkTheme && "22px" }}>
+          <motion.div 
+            className="ripple"
+            initial={{ scale: 1, opacity: 1}}
+            animate={{ scale: 5, opacity: 0}}
+            transition={{ duration: .3}}
+            key={isDarkTheme}
+        />
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
