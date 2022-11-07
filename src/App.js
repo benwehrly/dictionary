@@ -1,6 +1,7 @@
 import './App.css';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import useFetch from "./hooks/useFetch";
+import { ThemeContext } from './contexts/ThemeContext';
 import useToggle from './hooks/useToggle'
 import Footer from './components/Footer/Footer';
 import Word from './components/Word/Word';
@@ -27,8 +28,8 @@ export default function App() {
   const { isToggled: isDarkTheme, handleToggle: handleTheme } = useToggle(false)
 
   function handleSubmit(e) {
-    setCount((prev) => prev + 1);
     e.preventDefault();
+    setCount((prev) => prev + 1);
     setSearchTerm(text);
   }
 
@@ -42,33 +43,31 @@ export default function App() {
     color: isDarkTheme && 'white'
   }
 
-  const isFound = data?.[0]
+  const wordIsFound = data?.[0]
 
   return (
-    <div className="App" ref={appRef} style={theme}>
-      <Header 
-        isDarkTheme={isDarkTheme}
-        handleTheme={handleTheme}
-      />
-      <Form 
-        text={text} 
-        count={count} 
-        handleSubmit={handleSubmit} 
-        handleRandomWord={handleRandomWord}
-        setText={setText}
-      />
-      {isFound ? (
-        <Word
-          word={data[0]}
-          count={count}
-          setSearchTerm={setSearchTerm}
-          searchTerm={searchTerm}
-          isDarkTheme={isDarkTheme}
+    <ThemeContext.Provider value={{ isDarkTheme, handleTheme }}>
+      <div className="App" ref={appRef} style={theme}>
+        <Header />
+        <Form 
+          text={text} 
+          count={count} 
+          handleSubmit={handleSubmit} 
+          handleRandomWord={handleRandomWord}
+          setText={setText}
         />
-      ) : (
-        <h1>Word not found</h1>
-      )}
-      <Footer />
-    </div>
+        {wordIsFound ? (
+          <Word
+            word={data[0]}
+            count={count}
+            setSearchTerm={setSearchTerm}
+            searchTerm={searchTerm}
+          />
+        ) : (
+          <h1>Word not found</h1>
+        )}
+        <Footer />
+      </div>
+    </ThemeContext.Provider>
   );
 }

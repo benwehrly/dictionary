@@ -1,8 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import "./style.css";
 import { motion } from "framer-motion"
 
-const Header = ({ isDarkTheme, handleTheme }) => {
+const Header = () => {
+
+  const { isDarkTheme, handleTheme } = useContext(ThemeContext)
 
   return (
     <header>
