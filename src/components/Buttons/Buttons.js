@@ -1,36 +1,34 @@
 import './style.css'
-import { useState } from 'react';
-import useFetch from '../../hooks/useFetch';
+import useToggle from '../../hooks/useToggle';
 
-const Buttons = ({ handleSubmit, handleRandomWord, count }) => {
-    const { data: random } = useFetch(
-      "https://random-word-api.herokuapp.com/word",
-      count
-    );
+const Buttons = ({ handleSubmit, handleRandomWord }) => {
   
     return (
       <div className="buttons">
         <Button handleClick={handleSubmit} text='Search'/>
-        <Button handleClick={handleRandomWord} random={random} text='Random'/>
+        <Button handleClick={handleRandomWord} text='Random'/>
       </div>
     );
   };
 
   export default Buttons
 
-  const Button = ({ handleClick, text, random }) => {
+  const Button = ({ handleClick, text }) => {
 
-    const [ isHovered, setIsHovered ] = useState(false)
+    const { isToggled: isHovered, toggleOn: mouseOn, toggleOff: mouseOff } = useToggle(false)
 
       return (
         <button
         type="submit"
-        onClick={() => handleClick(random)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleClick}
+        onMouseEnter={mouseOn}
+        onMouseLeave={mouseOff}
+        onMouseUp={mouseOff}
+        onTouchEnd={mouseOff}
+        onMouseDown={e => e.preventDefault()}
       >
         <span>{text}</span>
-        <div className="hover" style={{ width: isHovered && "100%" }} />
+        <div className={isHovered? "hover-element expanded" : "hover-element"}/>
       </button>
       )
   }

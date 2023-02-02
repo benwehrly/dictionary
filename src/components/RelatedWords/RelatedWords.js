@@ -1,19 +1,24 @@
 import "./style.css";
 
-const RelatedWords = ({ text, type, setSearchTerm }) => {
+const RelatedWords = ({ text, type, setSearchTerm, setRelatedWord }) => {
+  
+  const handleClick = (term) => {
+    setSearchTerm(term);
+    setRelatedWord(term);
+  };
+
   return (
     <div className="synonyms">
-      <h2 style={{ margin: "5px" }}>{text}</h2>
+      <h2>{text}</h2>
       <div className="synonymsList">
-        {type.map((syn) => (
-          <p
+        {type.map((syn, i) => (
+          <button
+            key={i}
             style={{ fontWeight: 300 }}
-            onClick={() => {
-              setSearchTerm(syn);
-            }}
+            onClick={() => handleClick(syn)}
           >
             {syn}
-          </p>
+          </button>
         ))}
       </div>
     </div>
