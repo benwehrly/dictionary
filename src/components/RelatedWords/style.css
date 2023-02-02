@@ -6,6 +6,10 @@
     margin: 10px auto;
     border-radius: 10px;
   }
+
+  .synonyms > h2 {
+    margin: 5px;
+  }
   
   .synonyms:last-of-type {
     background-color: rgb(200, 100, 50);
@@ -18,17 +22,24 @@
     width: 300px;
   }
   
-  .synonymsList > p {
+  .synonymsList > button {
+    color:white;
     background-color: rgb(0, 0, 0, 0.3);
     width: fit-content;
     width: 110px;
     margin: 10px auto;
-    padding: 2px 10px 6px 10px;
+    padding: 6px 10px 6px 10px;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: .8rem;
   }
   
-  .synonymsList > p:hover {
+  .synonymsList > button:hover {
     background-color: rgb(0, 0, 0, 0.4);
   }
 

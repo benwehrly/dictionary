@@ -3,12 +3,12 @@ import { useState } from 'react';
 const useToggle = (initial) => {
     const [ isToggled, setIsToggled ] = useState(initial)
   
-    function handleToggle(){
-      setIsToggled(!isToggled)
-    }
+    const handleToggle = () => setIsToggled(!isToggled)
+    const toggleOn = () => setIsToggled(true)
+    const toggleOff = () => setIsToggled(false)
   
     return {
-      isToggled, handleToggle
+      isToggled, handleToggle, toggleOn, toggleOff
     }
   }
 

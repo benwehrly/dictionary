@@ -21,7 +21,7 @@
   }
   
   input {
-    font-family: "Oswald", sans-serif;
+    font-family:sans-serif;
     width: 100%;
     text-align: center;
     border: none;
@@ -35,7 +35,7 @@
   }
   
   input:focus {
-    box-shadow: 0 0 0 1px rgb(220,220,255);
+    box-shadow: 0 0 0 1px rgb(230,230,245);
   }
 
   .searchIconContainer {

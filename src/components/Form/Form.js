@@ -1,14 +1,14 @@
 import Buttons from "../Buttons/Buttons";
 import './style.css'
 
-const Form = ({ text, handleSubmit, handleRandomWord, count, setText }) => {
+const Form = ({ handleSubmit, handleRandomWord, setSearchTerm, searchTerm }) => {
   return (
     <form className="main" onSubmit={handleSubmit}>
       <div className="inputContainer">
         <input
           placeholder="Search..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           onClick={(e) => e.target.select()}
           autoFocus
         />
@@ -23,7 +23,6 @@ const Form = ({ text, handleSubmit, handleRandomWord, count, setText }) => {
       <Buttons
         handleSubmit={handleSubmit}
         handleRandomWord={handleRandomWord}
-        count={count}
       />
     </form>
   );
