@@ -1,13 +1,19 @@
+import "./style.css";
 import { motion, AnimatePresence } from "framer-motion";
 import RelatedWords from "../RelatedWords/RelatedWords";
-import { useContext } from 'react';
+import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-const Word = ({ word, setSearchTerm, searchTerm }) => {
-  const { partOfSpeech: type, synonyms, antonyms, definitions } = word.meanings[0]
-  const { word: thisWord, phonetic } = word;
+const Word = ({ wordData, setSearchTerm, setRelatedWord }) => {
+  const {
+    partOfSpeech: type,
+    synonyms,
+    antonyms,
+    definitions,
+  } = wordData.meanings[0];
+  const { word, phonetic } = wordData;
 
-const { isDarkTheme } = useContext(ThemeContext)
+  const { isDarkTheme } = useContext(ThemeContext);
 
   return (
     <AnimatePresence mode="wait" initial="false">
@@ -15,26 +21,26 @@ const { isDarkTheme } = useContext(ThemeContext)
         initial={{ x: -2000, skew: 50 }}
         animate={{ x: 0, skew: 0 }}
         exit={{ x: 2000, skew: 50 }}
-        key={searchTerm}
-        transition={{ duration: .3, type: "spring" }}
+        key={word}
+        transition={{ duration: 0.3, type: "spring" }}
+        className="word"
       >
         <h2>
-          {thisWord}  <span style={{ fontSize: '1rem', color: 'gray'}}> - {phonetic} {phonetic && type && "-"} {type}</span>
+          {word}{" "}
+          <span style={{ fontSize: "1rem", color: "gray" }}>
+            {" "}
+            - {phonetic} {phonetic && type && "-"} {type}
+          </span>
         </h2>
         <div className="results">
           <h4 className="definitions">
-            {definitions.slice(0, 3).map((def) => (
+            {definitions.slice(0, 3).map(({ definition }, i) => (
               <p
-                className="def"
-                style={{
-                  backgroundColor: isDarkTheme && "rgb(50, 60, 80)",
-                  color: isDarkTheme && "rgb(255, 255, 245)",
-                }}
+                key={i}
+                className={isDarkTheme ? "def dark-def" : "def light-def"}
               >
-                <span style={{ textTransform: "capitalize" }}>
-                  {thisWord}:{" "}
-                </span>{" "}
-                <span style={{ fontWeight: 300 }}>{def.definition}</span>
+                <span className='definition-word'>{word}: </span>
+                <span className='definition-text'>{definition}</span>
               </p>
             ))}
           </h4>
@@ -43,6 +49,7 @@ const { isDarkTheme } = useContext(ThemeContext)
               type={synonyms}
               text="Synonyms"
               setSearchTerm={setSearchTerm}
+              setRelatedWord={setRelatedWord}
             />
           )}
           {antonyms.length > 0 && (
@@ -50,6 +57,7 @@ const { isDarkTheme } = useContext(ThemeContext)
               type={antonyms}
               text="Antonyms"
               setSearchTerm={setSearchTerm}
+              setRelatedWord={setRelatedWord}
             />
           )}
         </div>

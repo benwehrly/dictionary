@@ -1,0 +1,44 @@
+.word {
+  margin: 0 auto;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: fit-content;
+  margin: 20px auto;
+  height: 330px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.results {
+  padding-inline: 10px;
+}
+
+.dark-def {
+  background-color: rgb(50, 60, 80);
+  color: rgb(255, 255, 245);
+}
+
+.light-def {
+  background-color: rgb(240, 240, 250);
+  color: black;
+}
+
+.def {
+  width: 400px;
+  margin: 10px auto 0 auto;
+  padding: 20px;
+  text-align: left;
+  transition: all 0.1s;
+  border-radius: 10px;
+}
+
+.definition-word {
+  text-transform: capitalize;
+}
+
+.definition-text {
+  font-weight: 300;
+}

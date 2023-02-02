@@ -1,6 +1,6 @@
-import { useEffect, useRef, useContext } from "react";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import "./style.css";
+import { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { motion } from "framer-motion"
 
 const Header = () => {
@@ -10,8 +10,8 @@ const Header = () => {
   return (
     <header>
       <h1>Quicktionary</h1>
-      <div className="theme" onClick={handleTheme}>
-        <div className="toggle" style={{ marginLeft: isDarkTheme && "22px" }}>
+      <button className="theme" onClick={handleTheme} onMouseDown={e => e.preventDefault()}>
+        <div className={isDarkTheme ? "toggle" : "toggle flipped"}>
           <motion.div 
             className="ripple"
             initial={{ scale: 1, opacity: 1}}
@@ -20,7 +20,7 @@ const Header = () => {
             key={isDarkTheme}
         />
         </div>
-      </div>
+      </button>
     </header>
   );
 };
