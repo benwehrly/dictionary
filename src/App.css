@@ -4,6 +4,10 @@ body {
   overscroll-behavior: none;
 }
 
+*{
+  box-shadow: border-box;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -25,4 +29,45 @@ h2 {
 .dark {
   background-color: rgb(30,30,40);
   color:white;
+}
+
+.error{
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1rem;
+  width: 400px;
+  border-radius: 6px;
+  padding: 20px;
+  padding-block: 40px;
+}
+
+.message-dark {
+  background-color: rgb(50, 60, 80);
+  color: rgb(255, 255, 245);
+}
+
+.message-light {
+  background-color: rgb(240, 240, 250);
+  color: black;
+}
+
+.loading {
+  opacity: 0;
+  animation: showAfterDelay .1s both;
+  animation-delay: .5s;
+}
+
+@keyframes showAfterDelay {
+
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+@media(max-width:600px){
+  .error{ width: 75% }
 }

@@ -4,7 +4,7 @@ import RelatedWords from "../RelatedWords/RelatedWords";
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-const Word = ({ wordData, setSearchTerm, setRelatedWord }) => {
+const Word = ({ wordData, setWord }) => {
   const {
     partOfSpeech: type,
     synonyms,
@@ -14,6 +14,7 @@ const Word = ({ wordData, setSearchTerm, setRelatedWord }) => {
   const { word, phonetic } = wordData;
 
   const { isDarkTheme } = useContext(ThemeContext);
+
 
   return (
     <AnimatePresence mode="wait" initial="false">
@@ -48,16 +49,14 @@ const Word = ({ wordData, setSearchTerm, setRelatedWord }) => {
             <RelatedWords
               type={synonyms}
               text="Synonyms"
-              setSearchTerm={setSearchTerm}
-              setRelatedWord={setRelatedWord}
+              setWord={setWord}
             />
           )}
           {antonyms.length > 0 && (
             <RelatedWords
               type={antonyms}
               text="Antonyms"
-              setSearchTerm={setSearchTerm}
-              setRelatedWord={setRelatedWord}
+              setWord={setWord}
             />
           )}
         </div>

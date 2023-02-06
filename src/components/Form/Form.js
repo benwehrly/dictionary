@@ -1,9 +1,12 @@
 import Buttons from "../Buttons/Buttons";
-import './style.css'
+import "./style.css";
 
-const Form = ({ handleSubmit, handleRandomWord, setSearchTerm, searchTerm }) => {
+const Form = ({ setSearchTerm, searchTerm, refetch, handleSubmit, setWord }) => {
   return (
-    <form className="main" onSubmit={handleSubmit}>
+    <form
+      className="main"
+      onSubmit={handleSubmit}
+    >
       <div className="inputContainer">
         <input
           placeholder="Search..."
@@ -12,7 +15,7 @@ const Form = ({ handleSubmit, handleRandomWord, setSearchTerm, searchTerm }) => 
           onClick={(e) => e.target.select()}
           autoFocus
         />
-        <div className='searchIconContainer' onClick={handleSubmit}>
+        <div className="searchIconContainer" onClick={handleSubmit}>
           <img
             className="searchIcon"
             src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-5.png"
@@ -21,8 +24,10 @@ const Form = ({ handleSubmit, handleRandomWord, setSearchTerm, searchTerm }) => 
         </div>
       </div>
       <Buttons
+        setSearchTerm={setSearchTerm}
+        refetch={refetch}
         handleSubmit={handleSubmit}
-        handleRandomWord={handleRandomWord}
+        setWord={setWord}
       />
     </form>
   );

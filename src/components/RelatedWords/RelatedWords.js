@@ -1,11 +1,10 @@
 import "./style.css";
 
-const RelatedWords = ({ text, type, setSearchTerm, setRelatedWord }) => {
-  
+const RelatedWords = ({ text, type, setWord }) => {
+
   const handleClick = (term) => {
-    setSearchTerm(term);
-    setRelatedWord(term);
-  };
+    setWord(term)
+  }
 
   return (
     <div className="synonyms">

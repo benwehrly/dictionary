@@ -1,44 +1,45 @@
 import "./App.css";
 import { useState, useRef, useEffect } from "react";
-import { fetchData } from "./helpers";
+import { RotatingLines } from "react-loader-spinner"
 import { ThemeContext } from "./contexts/ThemeContext";
+import { useQuery } from "@tanstack/react-query";
 import useToggle from "./hooks/useToggle";
 import Word from "./components/Word/Word";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
+import axios from "axios";
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("Definition");
-  const [randomWord, setRandomWord] = useState("");
-  const [relatedWord, setRelatedWord] = useState("");
-  const [wordData, setWordData] = useState("");
+  const [word, setWord] = useState("Definition");
   const appRef = useRef(null);
-  const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${searchTerm}`;
-  const randomUrl = "https://random-word-api.herokuapp.com/word";
+  const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
   const { isToggled: isDarkTheme, handleToggle: handleTheme } =
     useToggle(false);
-
-  const fetchWord = (e) => {
-    e?.preventDefault();
-    fetchData(url).then((data) => setWordData(data));
-  }
-
-  const fetchRandomWord = () => {
-    fetchData(randomUrl).then((data) => {
-      setRandomWord(data);
-      setSearchTerm(data);
-    });
-  }
+  const {
+    isFetching,
+    error,
+    data: wordData,
+    refetch,
+  } = useQuery({
+    queryKey: ["word"],
+    refetchOnWindowFocus: false,
+    queryFn: () => axios(url),
+  });
 
   useEffect(() => {
-    fetchWord();
-  }, [randomWord, relatedWord]);
+    setSearchTerm(word);
+    refetch();
+    if (wordData?.data) {
+      appRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [word]);
 
-  useEffect(() => {
-    appRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [wordData]);
-
-  const wordIsFound = wordData?.[0];
+  function handleSubmit(e) {
+    e.preventDefault();
+    setWord(searchTerm);
+    refetch();
+  }
 
   return (
     <ThemeContext.Provider value={{ isDarkTheme, handleTheme }}>
@@ -47,18 +48,29 @@ export default function App() {
         <Form
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
-          handleSubmit={fetchWord}
-          handleRandomWord={fetchRandomWord}
+          refetch={refetch}
+          setWord={setWord}
+          handleSubmit={handleSubmit}
         />
-        {wordIsFound ? (
-          <Word
-            wordData={wordData[0]}
-            setRelatedWord={setRelatedWord}
-            setSearchTerm={setSearchTerm}
-            searchTerm={searchTerm}
-          />
+        {isFetching ? (
+          <div className="loading">
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          </div>
+        ) : error ? (
+          <h2 className={isDarkTheme ? "error message-dark" : "error message-light"}>
+            {error.message}, Try Again.
+          </h2>
         ) : (
-          <h2>Word not found</h2>
+          <Word
+            wordData={wordData.data[0]}
+            setWord={setWord}
+          />
         )}
       </div>
     </ThemeContext.Provider>
