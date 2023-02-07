@@ -1,8 +1,9 @@
 import "./App.css";
 import { useState, useRef, useEffect } from "react";
-import { RotatingLines } from "react-loader-spinner"
+import { RotatingLines } from "react-loader-spinner";
 import { ThemeContext } from "./contexts/ThemeContext";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
 import useToggle from "./hooks/useToggle";
 import Word from "./components/Word/Word";
 import Header from "./components/Header/Header";
@@ -24,6 +25,7 @@ export default function App() {
   } = useQuery({
     queryKey: ["word"],
     refetchOnWindowFocus: false,
+    retry: 2,
     queryFn: () => axios(url),
   });
 
@@ -52,26 +54,37 @@ export default function App() {
           setWord={setWord}
           handleSubmit={handleSubmit}
         />
-        {isFetching ? (
-          <div className="loading">
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="96"
-              visible={true}
-            />
-          </div>
-        ) : error ? (
-          <h2 className={isDarkTheme ? "error message-dark" : "error message-light"}>
-            {error.message}, Try Again.
-          </h2>
-        ) : (
-          <Word
-            wordData={wordData.data[0]}
-            setWord={setWord}
-          />
-        )}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div 
+            key={word}
+            initial={{ x: -2000, skew: 50 }}
+            animate={{ x: 0, skew: 0 }}
+            exit={{ x: 2000, skew: 50 }}
+            transition={{ duration: 0.3, type: "spring" }}
+          >
+            {isFetching ? (
+              <div className="loading">
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="96"
+                  visible={true}
+                />
+              </div>
+            ) : error ? (
+              <h2
+                className={
+                  isDarkTheme ? "error message-dark" : "error message-light"
+                }
+              >
+                {error.message}, Try Again.
+              </h2>
+            ) : (
+              <Word word={word} wordData={wordData.data[0]} setWord={setWord} />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </ThemeContext.Provider>
   );
