@@ -39,6 +39,7 @@ h2 {
   border-radius: 6px;
   padding: 20px;
   padding-block: 40px;
+  text-transform: none;
 }
 
 .message-dark {
