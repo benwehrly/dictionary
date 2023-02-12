@@ -8,6 +8,7 @@ import useToggle from "./hooks/useToggle";
 import Word from "./components/Word/Word";
 import Header from "./components/Header/Header";
 import Form from "./components/Form/Form";
+import Error from "./components/Error/Error";
 import axios from "axios";
 
 export default function App() {
@@ -26,7 +27,7 @@ export default function App() {
     queryKey: ["word"],
     refetchOnWindowFocus: false,
     retry: 2,
-    queryFn: () => axios(url),
+    queryFn: () => axios.get(url, { timeout: 1000 }),
   });
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function App() {
           handleSubmit={handleSubmit}
         />
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div 
+          <motion.div
             key={word}
             initial={{ x: -2000, skew: 50 }}
             animate={{ x: 0, skew: 0 }}
@@ -65,7 +66,7 @@ export default function App() {
             {isFetching ? (
               <div className="loading">
                 <RotatingLines
-                  strokeColor="grey"
+                  strokeColor="gray"
                   strokeWidth="5"
                   animationDuration="0.75"
                   width="96"
@@ -73,13 +74,7 @@ export default function App() {
                 />
               </div>
             ) : error ? (
-              <h2
-                className={
-                  isDarkTheme ? "error message-dark" : "error message-light"
-                }
-              >
-                {error.message}, Try Again.
-              </h2>
+              <Error error={error}/>
             ) : (
               <Word word={word} wordData={wordData.data[0]} setWord={setWord} />
             )}
